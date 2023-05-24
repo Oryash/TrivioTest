@@ -13,6 +13,7 @@
 		7907423C2A1E083B00DD6B18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7907423A2A1E083B00DD6B18 /* LaunchScreen.storyboard */; };
 		790742442A1E0DB900DD6B18 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790742432A1E0DB900DD6B18 /* CoordinatorProtocol.swift */; };
 		790742472A1E0DE400DD6B18 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790742462A1E0DE400DD6B18 /* MainCoordinator.swift */; };
+		790742492A1E28F000DD6B18 /* UIView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790742482A1E28F000DD6B18 /* UIView + Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		7907423D2A1E083B00DD6B18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		790742432A1E0DB900DD6B18 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		790742462A1E0DE400DD6B18 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		790742482A1E28F000DD6B18 /* UIView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +59,9 @@
 			isa = PBXGroup;
 			children = (
 				7907422F2A1E083900DD6B18 /* AppDelegate.swift */,
-				790742332A1E083900DD6B18 /* MapViewController.swift */,
+				7907424B2A1E292B00DD6B18 /* Map */,
 				790742452A1E0DBF00DD6B18 /* Coordinator */,
+				7907424A2A1E28FF00DD6B18 /* Extensions */,
 				790742382A1E083B00DD6B18 /* Assets.xcassets */,
 				7907423A2A1E083B00DD6B18 /* LaunchScreen.storyboard */,
 				7907423D2A1E083B00DD6B18 /* Info.plist */,
@@ -73,6 +76,22 @@
 				790742462A1E0DE400DD6B18 /* MainCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		7907424A2A1E28FF00DD6B18 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				790742482A1E28F000DD6B18 /* UIView + Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		7907424B2A1E292B00DD6B18 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				790742332A1E083900DD6B18 /* MapViewController.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,6 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				790742492A1E28F000DD6B18 /* UIView + Extensions.swift in Sources */,
 				790742342A1E083900DD6B18 /* MapViewController.swift in Sources */,
 				790742472A1E0DE400DD6B18 /* MainCoordinator.swift in Sources */,
 				790742302A1E083900DD6B18 /* AppDelegate.swift in Sources */,
@@ -291,7 +311,6 @@
 				INFOPLIST_FILE = TrivioTest/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -319,7 +338,6 @@
 				INFOPLIST_FILE = TrivioTest/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
