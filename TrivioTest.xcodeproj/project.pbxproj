@@ -14,7 +14,7 @@
 		790742442A1E0DB900DD6B18 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790742432A1E0DB900DD6B18 /* CoordinatorProtocol.swift */; };
 		790742472A1E0DE400DD6B18 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790742462A1E0DE400DD6B18 /* MainCoordinator.swift */; };
 		790742492A1E28F000DD6B18 /* UIView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790742482A1E28F000DD6B18 /* UIView + Extensions.swift */; };
-		7907424D2A1F8F2000DD6B18 /* CustomPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7907424C2A1F8F2000DD6B18 /* CustomPinView.swift */; };
+		7907424F2A1F9AC800DD6B18 /* UIImage + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7907424E2A1F9AC800DD6B18 /* UIImage + Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 		790742432A1E0DB900DD6B18 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		790742462A1E0DE400DD6B18 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		790742482A1E28F000DD6B18 /* UIView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extensions.swift"; sourceTree = "<group>"; };
-		7907424C2A1F8F2000DD6B18 /* CustomPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPinView.swift; sourceTree = "<group>"; };
+		7907424E2A1F9AC800DD6B18 /* UIImage + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				790742482A1E28F000DD6B18 /* UIView + Extensions.swift */,
+				7907424E2A1F9AC800DD6B18 /* UIImage + Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -92,7 +93,6 @@
 			isa = PBXGroup;
 			children = (
 				790742332A1E083900DD6B18 /* MapViewController.swift */,
-				7907424C2A1F8F2000DD6B18 /* CustomPinView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -170,9 +170,9 @@
 				790742492A1E28F000DD6B18 /* UIView + Extensions.swift in Sources */,
 				790742342A1E083900DD6B18 /* MapViewController.swift in Sources */,
 				790742472A1E0DE400DD6B18 /* MainCoordinator.swift in Sources */,
-				7907424D2A1F8F2000DD6B18 /* CustomPinView.swift in Sources */,
 				790742302A1E083900DD6B18 /* AppDelegate.swift in Sources */,
 				790742442A1E0DB900DD6B18 /* CoordinatorProtocol.swift in Sources */,
+				7907424F2A1F9AC800DD6B18 /* UIImage + Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
