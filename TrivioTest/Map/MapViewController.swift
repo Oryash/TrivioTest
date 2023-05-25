@@ -10,12 +10,64 @@ import MapKit
 import CoreLocation
 
 class MapViewController: UIViewController, Coordinating {
+
+    private struct Constants {
+        static let panelViewHeight: CGFloat = 135
+    }
     var coordinator: CoordinatorProtocol?
 
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 10000
     var isPanelShown = false
 
+    var lat = Double()
+    private lazy var latLabel: UILabel = {
+        var label = UILabel()
+        label.backgroundColor = .white
+        label.textColor = .black
+//        label.text = "Lat: \(lat);"
+        label.font = label.font.withSize(20)
+        return label
+    }()
+
+    var lon = Double()
+    private lazy var lonLabel: UILabel = {
+        var label = UILabel()
+        label.backgroundColor = .white
+        label.textColor = .black
+//        label.text = "Lon: \(lon);"
+        label.font = label.font.withSize(20)
+
+        return label
+    }()
+
+    var city = String()
+    private lazy var cityLabel: UILabel = {
+        var label = UILabel()
+        label.backgroundColor = .white
+        label.textColor = .black
+        label.text = "City: \(city);"
+        label.font = label.font.withSize(20)
+
+        return label
+    }()
+
+    var tempC = String()
+    var tempF = String()
+    private lazy var tempLabel: UILabel = {
+        var label = UILabel()
+        label.backgroundColor = .white
+        label.textColor = .black
+        label.text = "Temperature: \(tempC)"
+        label.font = label.font.withSize(20)
+
+        return label
+    }()
+
+    private lazy var customSwitch: UISwitch = {
+        var mySwitch = UISwitch()
+        return mySwitch
+    }()
 
     var panelViewBottomConstraint: NSLayoutConstraint?
 
@@ -28,7 +80,7 @@ class MapViewController: UIViewController, Coordinating {
 
     private lazy var panelView: UIView = {
         let view = UIView()
-        view.backgroundColor = .red
+        view.backgroundColor = .white
         return view
     }()
 
@@ -86,16 +138,32 @@ class MapViewController: UIViewController, Coordinating {
 
     func setMapConstraints() {
         view.addSubviews(mapView, panelView)
+        panelView.addSubviews(latLabel, lonLabel, cityLabel, tempLabel, customSwitch)
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: self.view.topAnchor),
             mapView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             mapView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
 
-            panelView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 200),
+            panelView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: Constants.panelViewHeight),
             panelView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             panelView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            panelView.heightAnchor.constraint(equalToConstant: 200)
+            panelView.heightAnchor.constraint(equalToConstant: Constants.panelViewHeight),
+
+            latLabel.topAnchor.constraint(equalTo: panelView.topAnchor, constant: 15),
+            latLabel.leadingAnchor.constraint(equalTo: panelView.leadingAnchor, constant: 20),
+
+            lonLabel.topAnchor.constraint(equalTo: panelView.topAnchor, constant: 15),
+            lonLabel.leadingAnchor.constraint(equalTo: latLabel.trailingAnchor, constant: 5),
+
+            cityLabel.topAnchor.constraint(equalTo: latLabel.bottomAnchor, constant: 10),
+            cityLabel.leadingAnchor.constraint(equalTo: panelView.leadingAnchor, constant: 20),
+
+            tempLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 10),
+            tempLabel.leadingAnchor.constraint(equalTo: panelView.leadingAnchor, constant: 20),
+
+            customSwitch.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            customSwitch.bottomAnchor.constraint(equalTo: tempLabel.bottomAnchor)
 
         ])
     }
@@ -114,7 +182,10 @@ class MapViewController: UIViewController, Coordinating {
             let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
             mapView.setRegion(region, animated: true)
 
-
+            lat = annotation.coordinate.latitude
+            lon = annotation.coordinate.longitude
+            latLabel.text = "Lat: \(String(format: "%.3f", lat));"
+            lonLabel.text = "Lon: \(String(format: "%.3f", lon));"
 
             UIView.animate(withDuration: 0.5) {
                 self.panelViewBottomConstraint?.isActive = false
@@ -127,7 +198,7 @@ class MapViewController: UIViewController, Coordinating {
         } else if isPanelShown {
                 UIView.animate(withDuration: 0.5) {
                     self.panelViewBottomConstraint?.isActive = false
-                    self.panelViewBottomConstraint = self.panelView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 200)
+                    self.panelViewBottomConstraint = self.panelView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: Constants.panelViewHeight)
                     self.panelViewBottomConstraint?.isActive = true
                     self.view.layoutIfNeeded()
 
