@@ -26,12 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.window = window
 
-        UINavigationBar.appearance().tintColor = UIColor.white
+//        UINavigationBar.appearance().tintColor = UIColor.white
 
         coordinator.start()
-
-//        navVC.pushViewController(MapViewController(), animated: false)
-
         return true
     }
 

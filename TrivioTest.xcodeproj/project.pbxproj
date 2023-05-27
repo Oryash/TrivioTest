@@ -18,6 +18,7 @@
 		790742512A221EFE00DD6B18 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790742502A221EFE00DD6B18 /* NetworkManager.swift */; };
 		790742532A22251500DD6B18 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790742522A22251500DD6B18 /* WeatherData.swift */; };
 		798539752A228F4F0060A066 /* LocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798539742A228F4F0060A066 /* LocationsViewController.swift */; };
+		798539782A2291060060A066 /* PanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798539772A2291060060A066 /* PanelView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		790742502A221EFE00DD6B18 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		790742522A22251500DD6B18 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		798539742A228F4F0060A066 /* LocationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewController.swift; sourceTree = "<group>"; };
+		798539772A2291060060A066 /* PanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,8 +71,9 @@
 				7907422F2A1E083900DD6B18 /* AppDelegate.swift */,
 				790742502A221EFE00DD6B18 /* NetworkManager.swift */,
 				790742522A22251500DD6B18 /* WeatherData.swift */,
-				798539762A228F520060A066 /* Locations */,
+				798539772A2291060060A066 /* PanelView.swift */,
 				7907424B2A1E292B00DD6B18 /* Map */,
+				798539762A228F520060A066 /* Locations */,
 				790742452A1E0DBF00DD6B18 /* Coordinator */,
 				7907424A2A1E28FF00DD6B18 /* Extensions */,
 				790742382A1E083B00DD6B18 /* Assets.xcassets */,
@@ -193,6 +196,7 @@
 				790742442A1E0DB900DD6B18 /* CoordinatorProtocol.swift in Sources */,
 				790742532A22251500DD6B18 /* WeatherData.swift in Sources */,
 				7907424F2A1F9AC800DD6B18 /* UIImage + Extensions.swift in Sources */,
+				798539782A2291060060A066 /* PanelView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

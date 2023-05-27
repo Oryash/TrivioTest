@@ -298,7 +298,7 @@ class MapViewController: UIViewController, Coordinating {
     }
 
     @objc func navigate() {
-
+        coordinator?.eventOccurred(with: .btnPressed)
     }
 }
 

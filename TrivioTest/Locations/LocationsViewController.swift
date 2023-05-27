@@ -7,7 +7,9 @@
 
 import UIKit
 
-class LocationsViewController: UIViewController {
+class LocationsViewController: UIViewController, Coordinating {
+    var coordinator: CoordinatorProtocol?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

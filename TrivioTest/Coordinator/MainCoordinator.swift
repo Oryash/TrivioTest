@@ -13,15 +13,16 @@ final class MainCoordinator: CoordinatorProtocol {
 
     //MARK: - Internal Methods
 
-//    func eventOccurred(with type: Event) {
-//        switch type {
-//        case .appLoaded:
-//            var vc: UIViewController & Coordinating = MapViewController()
-//            vc.coordinator = self
-//            navigationController?.viewControllers.removeAll()
-//            navigationController?.pushViewController(vc, animated: true)
-//        }
-//    }
+    func eventOccurred(with type: Event) {
+        switch type {
+        case .btnPressed:
+            var vc: UIViewController & Coordinating = LocationsViewController()
+            vc.coordinator = self
+            vc.title = "Локации"
+            vc.navigationController?.navigationBar.barTintColor = .black
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 
 
     func start() {

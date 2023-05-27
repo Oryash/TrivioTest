@@ -8,15 +8,13 @@
 import UIKit
 
 enum Event {
-    case appLoaded
-//    case logoutButtonTapped
-//    case detailCellTapped(CoinData)
+    case btnPressed
 }
 
 protocol CoordinatorProtocol {
     var navigationController: UINavigationController? { get set }
 
-//    func eventOccurred(with type: Event)
+    func eventOccurred(with type: Event)
     func start()
 }
 
