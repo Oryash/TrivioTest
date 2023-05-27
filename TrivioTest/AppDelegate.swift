@@ -17,8 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let navVC = UINavigationController()
 
-//        let coordinator = MainCoordinator()
-//        coordinator.navigationController = navVC
+        let coordinator = MainCoordinator()
+        coordinator.navigationController = navVC
 
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController = navVC
@@ -26,9 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.window = window
 
-//        coordinator.start()
+        UINavigationBar.appearance().tintColor = UIColor.white
 
-        navVC.pushViewController(MapViewController(), animated: false)
+        coordinator.start()
+
+//        navVC.pushViewController(MapViewController(), animated: false)
 
         return true
     }

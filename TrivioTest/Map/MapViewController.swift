@@ -68,11 +68,12 @@ class MapViewController: UIViewController, Coordinating {
     }()
 
     private lazy var segmentedControl: UISegmentedControl = {
-        var mySwitch = UISegmentedControl()
-        return mySwitch
+        let items = ["C", "F"]
+        var segment = UISegmentedControl(items: items)
+        segment.selectedSegmentIndex = 0
+        segment.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
+        return segment
     }()
-
-    var panelViewBottomConstraint: NSLayoutConstraint?
 
     private lazy var mapView: MKMapView = {
         let map = MKMapView()
@@ -87,14 +88,33 @@ class MapViewController: UIViewController, Coordinating {
         return view
     }()
 
+    var panelViewBottomConstraint: NSLayoutConstraint?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
-        title = "Карта"
         setMapConstraints()
         checkLocationServices()
         mapView.delegate = self
 
+//        let navBar = navigationController?.navigationBar
+//        let navItem = UINavigationItem(title: "Btn")
+//        navItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(navigate))
+//        navBar?.setItems([navItem], animated: false)
+
+//        if #available(iOS 16.0, *) {
+//            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", image: UIImage(named: "Button"), target: self, action: #selector(navigate))
+//        } else {
+//            // Fallback on earlier versions
+//        }
+
+
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Btn", style: .plain, target: self, action: #selector(navigate))
+        if let buttonImage = UIImage(named: "Button")?.withRenderingMode(.alwaysOriginal) {
+            let barButtonItem = UIBarButtonItem(image: buttonImage, style: .plain, target: self, action: #selector(navigate))
+            barButtonItem.imageInsets = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: -30)
+
+            navigationItem.rightBarButtonItem = barButtonItem
+        }
     }
 
     func setupLocationManager() {
@@ -159,7 +179,7 @@ class MapViewController: UIViewController, Coordinating {
         }
     }
 
-    private func convertTemperature(_ temperature: Double, celsius: Bool) -> Double {
+    private func convertTemperature(tempInKelvin temperature: Double, celsius: Bool) -> Double {
 
         if celsius {
             return temperature - 273.15
@@ -195,8 +215,10 @@ class MapViewController: UIViewController, Coordinating {
             tempLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 10),
             tempLabel.leadingAnchor.constraint(equalTo: panelView.leadingAnchor, constant: 20),
 
-            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            segmentedControl.bottomAnchor.constraint(equalTo: tempLabel.bottomAnchor)
+            segmentedControl.leadingAnchor.constraint(equalTo: tempLabel.leadingAnchor, constant: 200),
+            segmentedControl.bottomAnchor.constraint(equalTo: tempLabel.bottomAnchor),
+            segmentedControl.heightAnchor.constraint(equalToConstant: 40),
+            segmentedControl.widthAnchor.constraint(equalToConstant: 80)
 
         ])
     }
@@ -229,7 +251,7 @@ class MapViewController: UIViewController, Coordinating {
                 guard let self else { return }
                 DispatchQueue.main.async {
                     self.tempK = temp
-                    self.tempC = self.convertTemperature(self.tempK, celsius: true)
+                    self.tempC = self.convertTemperature(tempInKelvin: self.tempK, celsius: true)
                     self.tempLabel.text = "Temperature: \(String(format: "%.2f", self.tempC))"
 
                 }
@@ -253,6 +275,30 @@ class MapViewController: UIViewController, Coordinating {
                 self.isPanelShown = false
 
         }
+    }
+
+    @objc func segmentedControlChanged(_ segmentedControl: UISegmentedControl) {
+        NetworkManager.fetch(lat: lat, lon: lon) { [weak self] temp in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                self.tempK = temp
+                self.tempC = self.convertTemperature(tempInKelvin: self.tempK, celsius: true)
+                self.tempF = self.convertTemperature(tempInKelvin: self.tempK, celsius: false)
+
+                switch segmentedControl.selectedSegmentIndex {
+                case 0:
+                    self.tempLabel.text = "Temperature: \(String(format: "%.2f", self.tempC))"
+                case 1:
+                    self.tempLabel.text = "Temperature: \(String(format: "%.2f", self.tempF))"
+                default:
+                    return
+                }
+            }
+        }
+    }
+
+    @objc func navigate() {
+
     }
 }
 
