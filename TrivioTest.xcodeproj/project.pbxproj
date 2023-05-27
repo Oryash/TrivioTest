@@ -15,6 +15,8 @@
 		790742472A1E0DE400DD6B18 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790742462A1E0DE400DD6B18 /* MainCoordinator.swift */; };
 		790742492A1E28F000DD6B18 /* UIView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790742482A1E28F000DD6B18 /* UIView + Extensions.swift */; };
 		7907424F2A1F9AC800DD6B18 /* UIImage + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7907424E2A1F9AC800DD6B18 /* UIImage + Extensions.swift */; };
+		790742512A221EFE00DD6B18 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790742502A221EFE00DD6B18 /* NetworkManager.swift */; };
+		790742532A22251500DD6B18 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790742522A22251500DD6B18 /* WeatherData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		790742462A1E0DE400DD6B18 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		790742482A1E28F000DD6B18 /* UIView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extensions.swift"; sourceTree = "<group>"; };
 		7907424E2A1F9AC800DD6B18 /* UIImage + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Extensions.swift"; sourceTree = "<group>"; };
+		790742502A221EFE00DD6B18 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		790742522A22251500DD6B18 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,8 @@
 			isa = PBXGroup;
 			children = (
 				7907422F2A1E083900DD6B18 /* AppDelegate.swift */,
+				790742502A221EFE00DD6B18 /* NetworkManager.swift */,
+				790742522A22251500DD6B18 /* WeatherData.swift */,
 				7907424B2A1E292B00DD6B18 /* Map */,
 				790742452A1E0DBF00DD6B18 /* Coordinator */,
 				7907424A2A1E28FF00DD6B18 /* Extensions */,
@@ -170,8 +176,10 @@
 				790742492A1E28F000DD6B18 /* UIView + Extensions.swift in Sources */,
 				790742342A1E083900DD6B18 /* MapViewController.swift in Sources */,
 				790742472A1E0DE400DD6B18 /* MainCoordinator.swift in Sources */,
+				790742512A221EFE00DD6B18 /* NetworkManager.swift in Sources */,
 				790742302A1E083900DD6B18 /* AppDelegate.swift in Sources */,
 				790742442A1E0DB900DD6B18 /* CoordinatorProtocol.swift in Sources */,
+				790742532A22251500DD6B18 /* WeatherData.swift in Sources */,
 				7907424F2A1F9AC800DD6B18 /* UIImage + Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

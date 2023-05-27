@@ -11,6 +11,8 @@ import CoreLocation
 
 class MapViewController: UIViewController, Coordinating {
 
+    //TODO: вынести в константы все значения
+    //TODO: вынести в стринг файл все стринги
     private struct Constants {
         static let panelViewHeight: CGFloat = 135
     }
@@ -25,7 +27,7 @@ class MapViewController: UIViewController, Coordinating {
         var label = UILabel()
         label.backgroundColor = .white
         label.textColor = .black
-//        label.text = "Lat: \(lat);"
+        label.text = "Lat: ;"
         label.font = label.font.withSize(20)
         return label
     }()
@@ -35,7 +37,7 @@ class MapViewController: UIViewController, Coordinating {
         var label = UILabel()
         label.backgroundColor = .white
         label.textColor = .black
-//        label.text = "Lon: \(lon);"
+        label.text = "Lon: ;"
         label.font = label.font.withSize(20)
 
         return label
@@ -46,26 +48,27 @@ class MapViewController: UIViewController, Coordinating {
         var label = UILabel()
         label.backgroundColor = .white
         label.textColor = .black
-        label.text = "City: \(city);"
+        label.text = "City: "
         label.font = label.font.withSize(20)
 
         return label
     }()
 
-    var tempC = String()
-    var tempF = String()
+    var tempC = Double()
+    var tempF = Double()
+    var tempK = Double()
     private lazy var tempLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .white
         label.textColor = .black
-        label.text = "Temperature: \(tempC)"
+        label.text = "Temperature: "
         label.font = label.font.withSize(20)
 
         return label
     }()
 
-    private lazy var customSwitch: UISwitch = {
-        var mySwitch = UISwitch()
+    private lazy var segmentedControl: UISegmentedControl = {
+        var mySwitch = UISegmentedControl()
         return mySwitch
     }()
 
@@ -136,9 +139,39 @@ class MapViewController: UIViewController, Coordinating {
         }
     }
 
+    func getCityNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (String) -> ()) {
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+
+        CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
+            guard let placemark = placemarks?.first, error == nil else {
+                print("Reverse geocoding failed: \(error?.localizedDescription ?? "Unknown Error")")
+                return
+            }
+
+            //TODO: city name переменная вообще используется где-либо?
+            if let cityName = placemark.locality {
+                self.city = cityName
+                completion(cityName)
+            } else {
+                self.city = "Нет города поблизости"
+                completion("Нет города поблизости")
+            }
+        }
+    }
+
+    private func convertTemperature(_ temperature: Double, celsius: Bool) -> Double {
+
+        if celsius {
+            return temperature - 273.15
+        } else {
+            return 1.8 * (temperature - 273) + 32
+        }
+
+    }
+
     func setMapConstraints() {
         view.addSubviews(mapView, panelView)
-        panelView.addSubviews(latLabel, lonLabel, cityLabel, tempLabel, customSwitch)
+        panelView.addSubviews(latLabel, lonLabel, cityLabel, tempLabel, segmentedControl)
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: self.view.topAnchor),
             mapView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
@@ -162,8 +195,8 @@ class MapViewController: UIViewController, Coordinating {
             tempLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 10),
             tempLabel.leadingAnchor.constraint(equalTo: panelView.leadingAnchor, constant: 20),
 
-            customSwitch.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            customSwitch.bottomAnchor.constraint(equalTo: tempLabel.bottomAnchor)
+            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            segmentedControl.bottomAnchor.constraint(equalTo: tempLabel.bottomAnchor)
 
         ])
     }
@@ -186,6 +219,21 @@ class MapViewController: UIViewController, Coordinating {
             lon = annotation.coordinate.longitude
             latLabel.text = "Lat: \(String(format: "%.3f", lat));"
             lonLabel.text = "Lon: \(String(format: "%.3f", lon));"
+            //TODO: пока город грузится, сделать loader 
+            getCityNameFromCoordinates(latitude: lat, longitude: lon) { name in
+                self.cityLabel.text = "City: \(name);"
+            }
+
+            //TODO: точно ли нам нужны все эти переменные типа lat lon и city temp, когда их можно сделать локальными?
+            NetworkManager.fetch(lat: lat, lon: lon) { [weak self] temp in
+                guard let self else { return }
+                DispatchQueue.main.async {
+                    self.tempK = temp
+                    self.tempC = self.convertTemperature(self.tempK, celsius: true)
+                    self.tempLabel.text = "Temperature: \(String(format: "%.2f", self.tempC))"
+
+                }
+            }
 
             UIView.animate(withDuration: 0.5) {
                 self.panelViewBottomConstraint?.isActive = false
@@ -193,7 +241,6 @@ class MapViewController: UIViewController, Coordinating {
                 self.panelViewBottomConstraint?.isActive = true
                 self.view.layoutIfNeeded()
             }
-
             isPanelShown = true
         } else if isPanelShown {
                 UIView.animate(withDuration: 0.5) {
