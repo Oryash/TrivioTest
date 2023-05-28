@@ -21,7 +21,7 @@ final class CityManager {
             if let cityName = placemark.locality {
                 completion(cityName)
             } else {
-                completion("Нет города поблизости")
+                completion(Strings.noCity.getString())
             }
         }
     }

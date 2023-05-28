@@ -19,7 +19,6 @@ class NetworkManager {
             }
 
             guard let data = data else { return }
-//            let jsonString = String(data: data, encoding: .utf8)
             if let model = parseJson(data) {
                 completion(model.main.temp)
             }
@@ -32,7 +31,6 @@ class NetworkManager {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(WeatherData.self, from: response)
-//            print(decodedData.verificationCode, decodedData.blockTimer)
             return .init(main: .init(temp: decodedData.main.temp))
         } catch {
             print(error.localizedDescription)

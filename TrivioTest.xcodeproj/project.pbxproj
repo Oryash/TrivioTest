@@ -21,6 +21,9 @@
 		798539782A2291060060A066 /* PanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798539772A2291060060A066 /* PanelView.swift */; };
 		7985397C2A2371100060A066 /* Double + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985397B2A2371100060A066 /* Double + Extensions.swift */; };
 		7985397E2A23729D0060A066 /* CityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985397D2A23729D0060A066 /* CityManager.swift */; };
+		798539802A23D8730060A066 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985397F2A23D8730060A066 /* Strings.swift */; };
+		798539822A23DBB10060A066 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798539812A23DBB10060A066 /* AlertManager.swift */; };
+		798539852A23DBF50060A066 /* AlertManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798539842A23DBF50060A066 /* AlertManagerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		798539772A2291060060A066 /* PanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelView.swift; sourceTree = "<group>"; };
 		7985397B2A2371100060A066 /* Double + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double + Extensions.swift"; sourceTree = "<group>"; };
 		7985397D2A23729D0060A066 /* CityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityManager.swift; sourceTree = "<group>"; };
+		7985397F2A23D8730060A066 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		798539812A23DBB10060A066 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		798539842A23DBF50060A066 /* AlertManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManagerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,8 +141,19 @@
 			children = (
 				798539772A2291060060A066 /* PanelView.swift */,
 				7985397D2A23729D0060A066 /* CityManager.swift */,
+				7985397F2A23D8730060A066 /* Strings.swift */,
+				798539832A23DBB70060A066 /* Alert */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		798539832A23DBB70060A066 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				798539812A23DBB10060A066 /* AlertManager.swift */,
+				798539842A23DBF50060A066 /* AlertManagerViewModel.swift */,
+			);
+			path = Alert;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,10 +233,13 @@
 				790742472A1E0DE400DD6B18 /* MainCoordinator.swift in Sources */,
 				790742512A221EFE00DD6B18 /* NetworkManager.swift in Sources */,
 				790742302A1E083900DD6B18 /* AppDelegate.swift in Sources */,
+				798539852A23DBF50060A066 /* AlertManagerViewModel.swift in Sources */,
+				798539802A23D8730060A066 /* Strings.swift in Sources */,
 				790742442A1E0DB900DD6B18 /* CoordinatorProtocol.swift in Sources */,
 				7985397E2A23729D0060A066 /* CityManager.swift in Sources */,
 				790742532A22251500DD6B18 /* WeatherData.swift in Sources */,
 				7907424F2A1F9AC800DD6B18 /* UIImage + Extensions.swift in Sources */,
+				798539822A23DBB10060A066 /* AlertManager.swift in Sources */,
 				798539782A2291060060A066 /* PanelView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

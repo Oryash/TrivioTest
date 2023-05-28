@@ -18,7 +18,7 @@ final class MainCoordinator: CoordinatorProtocol {
         case .btnPressed:
             var vc: UIViewController & Coordinating = LocationsViewController()
             vc.coordinator = self
-            vc.title = "Локации"
+            vc.title = Strings.Локации.getString()
             vc.navigationController?.navigationBar.barTintColor = .black
             navigationController?.pushViewController(vc, animated: true)
         }
@@ -28,22 +28,15 @@ final class MainCoordinator: CoordinatorProtocol {
     func start() {
         var vc: UIViewController & Coordinating = MapViewController()
         vc.coordinator = self
-//        navigationController?.navigationBar.barTintColor = .white
-//        navigationController?.navigationBar.tintColor = .white
-//        navigationController?.navigationBar.barStyle = .default
-
-//        navigationController?.navigationBar.isTranslucent = false
 
         if #available(iOS 15.0, *) {
 
             let navBarAppearance = UINavigationBarAppearance()
             navBarAppearance.configureWithOpaqueBackground()
-            //Configure additional customizations here
             UINavigationBar.appearance().standardAppearance = navBarAppearance
             UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
         }
-        vc.title = "Карта"
+        vc.title = Strings.Карта.getString()
         navigationController?.setViewControllers([vc], animated: false)
     }
-
 }

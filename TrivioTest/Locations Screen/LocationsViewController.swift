@@ -9,9 +9,13 @@ import UIKit
 
 class LocationsViewController: UIViewController, Coordinating {
 
+    //MARK: - Properties
+
     private struct Constants {
         static let panelViewHeight: CGFloat = 135
+        static let constraint10: CGFloat = 10
     }
+
     var coordinator: CoordinatorProtocol?
 
     private var firstPanelView = PanelView()
@@ -30,6 +34,8 @@ class LocationsViewController: UIViewController, Coordinating {
         setUpConstraints()
         setUpPanels()
     }
+
+    //MARK: - Methods
 
     private func setUpPanels() {
         let panelsArray = [firstPanelView, secondPanelView, thirdPanelView, fourthPanelView, fifthPanelView]
@@ -85,12 +91,7 @@ class LocationsViewController: UIViewController, Coordinating {
     }
 
     private func convertTemperature(tempInKelvin temperature: Double, celsius: Bool) -> Double {
-        if celsius {
-            return temperature - 273.15
-        } else {
-            return 1.8 * (temperature - 273) + 32
-        }
-
+        return celsius ? (temperature - 273.15) : (1.8 * (temperature - 273) + 32)
     }
 
     private func setUpConstraints() {
@@ -98,27 +99,27 @@ class LocationsViewController: UIViewController, Coordinating {
 
         NSLayoutConstraint.activate([
 
-            firstPanelView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            firstPanelView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: Constants.constraint10),
             firstPanelView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             firstPanelView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             firstPanelView.heightAnchor.constraint(equalToConstant: Constants.panelViewHeight),
 
-            secondPanelView.topAnchor.constraint(equalTo: firstPanelView.bottomAnchor, constant: 10),
+            secondPanelView.topAnchor.constraint(equalTo: firstPanelView.bottomAnchor, constant: Constants.constraint10),
             secondPanelView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             secondPanelView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             secondPanelView.heightAnchor.constraint(equalToConstant: Constants.panelViewHeight),
 
-            thirdPanelView.topAnchor.constraint(equalTo: secondPanelView.bottomAnchor, constant: 10),
+            thirdPanelView.topAnchor.constraint(equalTo: secondPanelView.bottomAnchor, constant: Constants.constraint10),
             thirdPanelView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             thirdPanelView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             thirdPanelView.heightAnchor.constraint(equalToConstant: Constants.panelViewHeight),
 
-            fourthPanelView.topAnchor.constraint(equalTo: thirdPanelView.bottomAnchor, constant: 10),
+            fourthPanelView.topAnchor.constraint(equalTo: thirdPanelView.bottomAnchor, constant: Constants.constraint10),
             fourthPanelView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             fourthPanelView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             fourthPanelView.heightAnchor.constraint(equalToConstant: Constants.panelViewHeight),
 
-            fifthPanelView.topAnchor.constraint(equalTo: fourthPanelView.bottomAnchor, constant: 10),
+            fifthPanelView.topAnchor.constraint(equalTo: fourthPanelView.bottomAnchor, constant: Constants.constraint10),
             fifthPanelView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             fifthPanelView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             fifthPanelView.heightAnchor.constraint(equalToConstant: Constants.panelViewHeight)
