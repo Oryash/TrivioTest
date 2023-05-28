@@ -19,6 +19,8 @@
 		790742532A22251500DD6B18 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790742522A22251500DD6B18 /* WeatherData.swift */; };
 		798539752A228F4F0060A066 /* LocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798539742A228F4F0060A066 /* LocationsViewController.swift */; };
 		798539782A2291060060A066 /* PanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798539772A2291060060A066 /* PanelView.swift */; };
+		7985397C2A2371100060A066 /* Double + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985397B2A2371100060A066 /* Double + Extensions.swift */; };
+		7985397E2A23729D0060A066 /* CityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985397D2A23729D0060A066 /* CityManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		790742522A22251500DD6B18 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		798539742A228F4F0060A066 /* LocationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewController.swift; sourceTree = "<group>"; };
 		798539772A2291060060A066 /* PanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelView.swift; sourceTree = "<group>"; };
+		7985397B2A2371100060A066 /* Double + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double + Extensions.swift"; sourceTree = "<group>"; };
+		7985397D2A23729D0060A066 /* CityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,11 +73,10 @@
 			isa = PBXGroup;
 			children = (
 				7907422F2A1E083900DD6B18 /* AppDelegate.swift */,
-				790742502A221EFE00DD6B18 /* NetworkManager.swift */,
-				790742522A22251500DD6B18 /* WeatherData.swift */,
-				798539772A2291060060A066 /* PanelView.swift */,
-				7907424B2A1E292B00DD6B18 /* Map */,
-				798539762A228F520060A066 /* Locations */,
+				798539792A236E5D0060A066 /* Networking */,
+				7985397A2A236E660060A066 /* Components */,
+				7907424B2A1E292B00DD6B18 /* Map Screen */,
+				798539762A228F520060A066 /* Locations Screen */,
 				790742452A1E0DBF00DD6B18 /* Coordinator */,
 				7907424A2A1E28FF00DD6B18 /* Extensions */,
 				790742382A1E083B00DD6B18 /* Assets.xcassets */,
@@ -97,24 +100,43 @@
 			children = (
 				790742482A1E28F000DD6B18 /* UIView + Extensions.swift */,
 				7907424E2A1F9AC800DD6B18 /* UIImage + Extensions.swift */,
+				7985397B2A2371100060A066 /* Double + Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		7907424B2A1E292B00DD6B18 /* Map */ = {
+		7907424B2A1E292B00DD6B18 /* Map Screen */ = {
 			isa = PBXGroup;
 			children = (
 				790742332A1E083900DD6B18 /* MapViewController.swift */,
 			);
-			path = Map;
+			path = "Map Screen";
 			sourceTree = "<group>";
 		};
-		798539762A228F520060A066 /* Locations */ = {
+		798539762A228F520060A066 /* Locations Screen */ = {
 			isa = PBXGroup;
 			children = (
 				798539742A228F4F0060A066 /* LocationsViewController.swift */,
 			);
-			path = Locations;
+			path = "Locations Screen";
+			sourceTree = "<group>";
+		};
+		798539792A236E5D0060A066 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				790742502A221EFE00DD6B18 /* NetworkManager.swift */,
+				790742522A22251500DD6B18 /* WeatherData.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		7985397A2A236E660060A066 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				798539772A2291060060A066 /* PanelView.swift */,
+				7985397D2A23729D0060A066 /* CityManager.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +209,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7985397C2A2371100060A066 /* Double + Extensions.swift in Sources */,
 				790742492A1E28F000DD6B18 /* UIView + Extensions.swift in Sources */,
 				790742342A1E083900DD6B18 /* MapViewController.swift in Sources */,
 				798539752A228F4F0060A066 /* LocationsViewController.swift in Sources */,
@@ -194,6 +217,7 @@
 				790742512A221EFE00DD6B18 /* NetworkManager.swift in Sources */,
 				790742302A1E083900DD6B18 /* AppDelegate.swift in Sources */,
 				790742442A1E0DB900DD6B18 /* CoordinatorProtocol.swift in Sources */,
+				7985397E2A23729D0060A066 /* CityManager.swift in Sources */,
 				790742532A22251500DD6B18 /* WeatherData.swift in Sources */,
 				7907424F2A1F9AC800DD6B18 /* UIImage + Extensions.swift in Sources */,
 				798539782A2291060060A066 /* PanelView.swift in Sources */,

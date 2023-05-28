@@ -9,7 +9,9 @@ import UIKit
 
 class PanelView: UIView {
 
-    private lazy var latLabel: UILabel = {
+    //TODO: все свойства сделать снова приватными, затем вытащить методы на их изменение, через диспатчГруп
+
+     lazy var latLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .white
         label.textColor = .black
@@ -18,7 +20,7 @@ class PanelView: UIView {
         return label
     }()
 
-    private lazy var lonLabel: UILabel = {
+     lazy var lonLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .white
         label.textColor = .black
@@ -28,7 +30,7 @@ class PanelView: UIView {
         return label
     }()
 
-    private lazy var cityLabel: UILabel = {
+     lazy var cityLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .white
         label.textColor = .black
@@ -39,7 +41,7 @@ class PanelView: UIView {
     }()
 
 
-    private lazy var tempLabel: UILabel = {
+     lazy var tempLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .white
         label.textColor = .black
@@ -49,7 +51,7 @@ class PanelView: UIView {
         return label
     }()
 
-    private lazy var segmentedControl: UISegmentedControl = {
+     lazy var segmentedControl: UISegmentedControl = {
         let items = ["C", "F"]
         var segment = UISegmentedControl(items: items)
         segment.selectedSegmentIndex = 0
@@ -57,10 +59,14 @@ class PanelView: UIView {
         return segment
     }()
 
+    var segmentedControlCallback: (UISegmentedControl) -> () = { _ in }
+
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
         backgroundColor = .white
+        layer.borderWidth = 0.5
 
         setConstraints()
     }
@@ -69,8 +75,8 @@ class PanelView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc private func segmentedControlChanged() {
-        //TODO: вызов делегата или кложур
+    @objc private func segmentedControlChanged(_ segmentedControl: UISegmentedControl) {
+        segmentedControlCallback(segmentedControl)
     }
 
     private func setConstraints() {
@@ -90,8 +96,8 @@ class PanelView: UIView {
             tempLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 10),
             tempLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
 
-            segmentedControl.leadingAnchor.constraint(equalTo: tempLabel.leadingAnchor, constant: 200),
-            segmentedControl.bottomAnchor.constraint(equalTo: tempLabel.bottomAnchor),
+            segmentedControl.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -25),
+            segmentedControl.centerYAnchor.constraint(equalTo: tempLabel.centerYAnchor),
             segmentedControl.heightAnchor.constraint(equalToConstant: 40),
             segmentedControl.widthAnchor.constraint(equalToConstant: 80)
 

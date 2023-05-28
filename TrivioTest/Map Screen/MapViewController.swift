@@ -23,57 +23,56 @@ class MapViewController: UIViewController, Coordinating {
     var isPanelShown = false
 
     var lat = Double()
-    private lazy var latLabel: UILabel = {
-        var label = UILabel()
-        label.backgroundColor = .white
-        label.textColor = .black
-        label.text = "Lat: ;"
-        label.font = label.font.withSize(20)
-        return label
-    }()
+//    private lazy var latLabel: UILabel = {
+//        var label = UILabel()
+//        label.backgroundColor = .white
+//        label.textColor = .black
+//        label.text = "Lat: ;"
+//        label.font = label.font.withSize(20)
+//        return label
+//    }()
 
     var lon = Double()
-    private lazy var lonLabel: UILabel = {
-        var label = UILabel()
-        label.backgroundColor = .white
-        label.textColor = .black
-        label.text = "Lon: ;"
-        label.font = label.font.withSize(20)
+//    private lazy var lonLabel: UILabel = {
+//        var label = UILabel()
+//        label.backgroundColor = .white
+//        label.textColor = .black
+//        label.text = "Lon: ;"
+//        label.font = label.font.withSize(20)
+//        return label
+//    }()
 
-        return label
-    }()
+//    var city = String()
+//    private lazy var cityLabel: UILabel = {
+//        var label = UILabel()
+//        label.backgroundColor = .white
+//        label.textColor = .black
+//        label.text = "City: "
+//        label.font = label.font.withSize(20)
+//
+//        return label
+//    }()
 
-    var city = String()
-    private lazy var cityLabel: UILabel = {
-        var label = UILabel()
-        label.backgroundColor = .white
-        label.textColor = .black
-        label.text = "City: "
-        label.font = label.font.withSize(20)
+    private var tempC = Double()
+    private var tempF = Double()
+    private var tempK = Double()
+//    private lazy var tempLabel: UILabel = {
+//        var label = UILabel()
+//        label.backgroundColor = .white
+//        label.textColor = .black
+//        label.text = "Temperature: "
+//        label.font = label.font.withSize(20)
+//
+//        return label
+//    }()
 
-        return label
-    }()
-
-    var tempC = Double()
-    var tempF = Double()
-    var tempK = Double()
-    private lazy var tempLabel: UILabel = {
-        var label = UILabel()
-        label.backgroundColor = .white
-        label.textColor = .black
-        label.text = "Temperature: "
-        label.font = label.font.withSize(20)
-
-        return label
-    }()
-
-    private lazy var segmentedControl: UISegmentedControl = {
-        let items = ["C", "F"]
-        var segment = UISegmentedControl(items: items)
-        segment.selectedSegmentIndex = 0
-        segment.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
-        return segment
-    }()
+//    private lazy var segmentedControl: UISegmentedControl = {
+//        let items = ["C", "F"]
+//        var segment = UISegmentedControl(items: items)
+//        segment.selectedSegmentIndex = 0
+//        segment.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
+//        return segment
+//    }()
 
     private lazy var mapView: MKMapView = {
         let map = MKMapView()
@@ -82,11 +81,7 @@ class MapViewController: UIViewController, Coordinating {
         return map
     }()
 
-    private lazy var panelView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        return view
-    }()
+    private var panelView = PanelView()
 
     var panelViewBottomConstraint: NSLayoutConstraint?
 
@@ -95,6 +90,9 @@ class MapViewController: UIViewController, Coordinating {
         setMapConstraints()
         checkLocationServices()
         mapView.delegate = self
+        panelView.segmentedControlCallback = { control in
+            self.segmentedControlChanged(control)
+        }
 
 //        let navBar = navigationController?.navigationBar
 //        let navItem = UINavigationItem(title: "Btn")
@@ -159,26 +157,6 @@ class MapViewController: UIViewController, Coordinating {
         }
     }
 
-    func getCityNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (String) -> ()) {
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-
-        CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
-            guard let placemark = placemarks?.first, error == nil else {
-                print("Reverse geocoding failed: \(error?.localizedDescription ?? "Unknown Error")")
-                return
-            }
-
-            //TODO: city name переменная вообще используется где-либо?
-            if let cityName = placemark.locality {
-                self.city = cityName
-                completion(cityName)
-            } else {
-                self.city = "Нет города поблизости"
-                completion("Нет города поблизости")
-            }
-        }
-    }
-
     private func convertTemperature(tempInKelvin temperature: Double, celsius: Bool) -> Double {
 
         if celsius {
@@ -191,7 +169,6 @@ class MapViewController: UIViewController, Coordinating {
 
     func setMapConstraints() {
         view.addSubviews(mapView, panelView)
-        panelView.addSubviews(latLabel, lonLabel, cityLabel, tempLabel, segmentedControl)
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: self.view.topAnchor),
             mapView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
@@ -201,25 +178,7 @@ class MapViewController: UIViewController, Coordinating {
             panelView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: Constants.panelViewHeight),
             panelView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             panelView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            panelView.heightAnchor.constraint(equalToConstant: Constants.panelViewHeight),
-
-            latLabel.topAnchor.constraint(equalTo: panelView.topAnchor, constant: 15),
-            latLabel.leadingAnchor.constraint(equalTo: panelView.leadingAnchor, constant: 20),
-
-            lonLabel.topAnchor.constraint(equalTo: panelView.topAnchor, constant: 15),
-            lonLabel.leadingAnchor.constraint(equalTo: latLabel.trailingAnchor, constant: 5),
-
-            cityLabel.topAnchor.constraint(equalTo: latLabel.bottomAnchor, constant: 10),
-            cityLabel.leadingAnchor.constraint(equalTo: panelView.leadingAnchor, constant: 20),
-
-            tempLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 10),
-            tempLabel.leadingAnchor.constraint(equalTo: panelView.leadingAnchor, constant: 20),
-
-            segmentedControl.leadingAnchor.constraint(equalTo: tempLabel.leadingAnchor, constant: 200),
-            segmentedControl.bottomAnchor.constraint(equalTo: tempLabel.bottomAnchor),
-            segmentedControl.heightAnchor.constraint(equalToConstant: 40),
-            segmentedControl.widthAnchor.constraint(equalToConstant: 80)
-
+            panelView.heightAnchor.constraint(equalToConstant: Constants.panelViewHeight)
         ])
     }
 
@@ -239,20 +198,24 @@ class MapViewController: UIViewController, Coordinating {
 
             lat = annotation.coordinate.latitude
             lon = annotation.coordinate.longitude
-            latLabel.text = "Lat: \(String(format: "%.3f", lat));"
-            lonLabel.text = "Lon: \(String(format: "%.3f", lon));"
-            //TODO: пока город грузится, сделать loader 
-            getCityNameFromCoordinates(latitude: lat, longitude: lon) { name in
-                self.cityLabel.text = "City: \(name);"
+            panelView.latLabel.text = "Lat: \(String(format: "%.3f", lat));"
+            panelView.lonLabel.text = "Lon: \(String(format: "%.3f", lon));"
+            //TODO: пока город грузится, сделать loader
+
+            CityManager.getCityNameFromCoordinates(latitude: lat, longitude: lon) { name in
+                DispatchQueue.main.async {
+                    self.panelView.cityLabel.text = "City: \(name);"
+                }
             }
 
             //TODO: точно ли нам нужны все эти переменные типа lat lon и city temp, когда их можно сделать локальными?
             NetworkManager.fetch(lat: lat, lon: lon) { [weak self] temp in
                 guard let self else { return }
+
                 DispatchQueue.main.async {
                     self.tempK = temp
                     self.tempC = self.convertTemperature(tempInKelvin: self.tempK, celsius: true)
-                    self.tempLabel.text = "Temperature: \(String(format: "%.2f", self.tempC))"
+                    self.panelView.tempLabel.text = "Temperature: \(String(format: "%.2f", self.tempC))"
 
                 }
             }
@@ -277,7 +240,7 @@ class MapViewController: UIViewController, Coordinating {
         }
     }
 
-    @objc func segmentedControlChanged(_ segmentedControl: UISegmentedControl) {
+    func segmentedControlChanged(_ segmentedControl: UISegmentedControl) {
         NetworkManager.fetch(lat: lat, lon: lon) { [weak self] temp in
             guard let self else { return }
             DispatchQueue.main.async {
@@ -287,9 +250,9 @@ class MapViewController: UIViewController, Coordinating {
 
                 switch segmentedControl.selectedSegmentIndex {
                 case 0:
-                    self.tempLabel.text = "Temperature: \(String(format: "%.2f", self.tempC))"
+                    self.panelView.tempLabel.text = "Temperature: \(String(format: "%.2f", self.tempC))"
                 case 1:
-                    self.tempLabel.text = "Temperature: \(String(format: "%.2f", self.tempF))"
+                    self.panelView.tempLabel.text = "Temperature: \(String(format: "%.2f", self.tempF))"
                 default:
                     return
                 }
