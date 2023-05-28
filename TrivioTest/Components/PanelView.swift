@@ -9,7 +9,7 @@ import UIKit
 
 class PanelView: UIView {
 
-    //TODO: все свойства сделать снова приватными, затем вытащить методы на их изменение, через диспатчГруп. Это прямо придется делать, если подвязывать компонент под протокол. 
+    //TODO: все свойства сделать снова приватными, затем вытащить методы на их изменение, через диспатчГруп. Это прямо придется делать, если подвязывать компонент под протокол.
 
     //MARK: - Properties
 
@@ -24,44 +24,43 @@ class PanelView: UIView {
         static let constraint80: CGFloat = 80
     }
 
-     lazy var latLabel: UILabel = {
+    private(set) lazy var latLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .white
         label.textColor = .black
-         label.text = Strings.lat.getString()
-         label.font = label.font.withSize(Constants.labelFont)
-        return label
-    }()
-
-     lazy var lonLabel: UILabel = {
-        var label = UILabel()
-        label.backgroundColor = .white
-        label.textColor = .black
-         label.text = Strings.lon.getString()
+        label.text = Strings.lat.getString()
         label.font = label.font.withSize(Constants.labelFont)
         return label
     }()
 
-     lazy var cityLabel: UILabel = {
-         var label = UILabel()
-         label.backgroundColor = .white
-         label.textColor = .black
-         label.text = Strings.city.getString()
-         label.font = label.font.withSize(Constants.labelFont)
-         return label
-    }()
-
-
-     lazy var tempLabel: UILabel = {
+    private(set) lazy var lonLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .white
         label.textColor = .black
-         label.text = Strings.temperature.getString()
+        label.text = Strings.lon.getString()
         label.font = label.font.withSize(Constants.labelFont)
         return label
     }()
 
-     lazy var segmentedControl: UISegmentedControl = {
+    private(set) lazy var cityLabel: UILabel = {
+        var label = UILabel()
+        label.backgroundColor = .white
+        label.textColor = .black
+        label.text = Strings.city.getString()
+        label.font = label.font.withSize(Constants.labelFont)
+        return label
+    }()
+
+    private(set) lazy var tempLabel: UILabel = {
+        var label = UILabel()
+        label.backgroundColor = .white
+        label.textColor = .black
+        label.text = Strings.temperature.getString()
+        label.font = label.font.withSize(Constants.labelFont)
+        return label
+    }()
+
+    private(set) lazy var segmentedControl: UISegmentedControl = {
         let items = ["C", "F"]
         var segment = UISegmentedControl(items: items)
         segment.selectedSegmentIndex = 0
@@ -78,7 +77,6 @@ class PanelView: UIView {
         
         backgroundColor = .white
         layer.borderWidth = 0.5
-
         setConstraints()
     }
 
@@ -90,6 +88,21 @@ class PanelView: UIView {
 
     @objc private func segmentedControlChanged(_ segmentedControl: UISegmentedControl) {
         segmentedControlCallback(segmentedControl)
+    }
+
+    func changeLabelText(text: String, UIElement: UIView) {
+        switch UIElement {
+        case latLabel:
+            latLabel.text = text
+        case lonLabel:
+            lonLabel.text = text
+        case cityLabel:
+            cityLabel.text = text
+        case tempLabel:
+            tempLabel.text = text
+        default:
+            return
+        }
     }
 
     private func setConstraints() {

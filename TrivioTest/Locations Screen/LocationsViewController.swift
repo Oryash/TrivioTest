@@ -43,12 +43,12 @@ class LocationsViewController: UIViewController, Coordinating {
             let lat = Double.random(in: (-90...90)).rounded(toPlaces: 5)
             let lon = Double.random(in: (-180...180)).rounded(toPlaces: 5)
 
-            panel.latLabel.text = "Lat: \(String(format: "%.3f", lat));"
-            panel.lonLabel.text = "Lon: \(String(format: "%.3f", lon));"
+            panel.changeLabelText(text: "Lat: \(String(format: "%.3f", lat));", UIElement: panel.latLabel)
+            panel.changeLabelText(text: "Lon: \(String(format: "%.3f", lon));", UIElement: panel.lonLabel)
 
             CityManager.getCityNameFromCoordinates(latitude: lat, longitude: lon) { name in
                 DispatchQueue.main.async {
-                    panel.cityLabel.text = "City: \(name);"
+                    panel.changeLabelText(text: "City: \(name);", UIElement: panel.cityLabel)
                 }
             }
 
@@ -58,7 +58,7 @@ class LocationsViewController: UIViewController, Coordinating {
                 DispatchQueue.main.async {
                     self.tempK = temp
                     self.tempC = self.convertTemperature(tempInKelvin: self.tempK, celsius: true)
-                    panel.tempLabel.text = "Temperature: \(String(format: "%.2f", self.tempC))"
+                    panel.changeLabelText(text: "Temperature: \(String(format: "%.2f", self.tempC))", UIElement: panel.tempLabel)
 
                 }
             }
@@ -80,9 +80,9 @@ class LocationsViewController: UIViewController, Coordinating {
 
                 switch segmentedControl.selectedSegmentIndex {
                 case 0:
-                    panelView.tempLabel.text = "Temperature: \(String(format: "%.2f", self.tempC))"
+                    panelView.changeLabelText(text: "Temperature: \(String(format: "%.2f", self.tempC))", UIElement: panelView.tempLabel)
                 case 1:
-                    panelView.tempLabel.text = "Temperature: \(String(format: "%.2f", self.tempF))"
+                    panelView.changeLabelText(text: "Temperature: \(String(format: "%.2f", self.tempF))", UIElement: panelView.tempLabel)
                 default:
                     return
                 }

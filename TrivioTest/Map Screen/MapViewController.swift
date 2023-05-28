@@ -127,9 +127,11 @@ class MapViewController: UIViewController, Coordinating {
 
                 switch segmentedControl.selectedSegmentIndex {
                 case 0:
-                    self.panelView.tempLabel.text = Strings.temperature.getString() + String(format: "%.2f", self.tempC)
+                    let newString = Strings.temperature.getString() + String(format: "%.2f", self.tempC)
+                    self.panelView.changeLabelText(text: newString, UIElement: self.panelView.tempLabel)
                 case 1:
-                    self.panelView.tempLabel.text = Strings.temperature.getString() + String(format: "%.2f", self.tempF)
+                    let newString = Strings.temperature.getString() + String(format: "%.2f", self.tempF)
+                    self.panelView.changeLabelText(text: newString, UIElement: self.panelView.tempLabel)
                 default:
                     return
                 }
@@ -169,13 +171,14 @@ class MapViewController: UIViewController, Coordinating {
 
             lat = annotation.coordinate.latitude
             lon = annotation.coordinate.longitude
-            panelView.latLabel.text = "Lat: \(String(format: "%.3f", lat));"
-            panelView.lonLabel.text = "Lon: \(String(format: "%.3f", lon));"
+
+            panelView.changeLabelText(text: "Lat: \(String(format: "%.3f", lat));", UIElement: panelView.latLabel)
+            panelView.changeLabelText(text: "Lon: \(String(format: "%.3f", lon));", UIElement: panelView.lonLabel)
             //TODO: пока город (может вся tableView) грузится, сделать loader
 
             CityManager.getCityNameFromCoordinates(latitude: lat, longitude: lon) { name in
                 DispatchQueue.main.async {
-                    self.panelView.cityLabel.text = "City: \(name);"
+                    self.panelView.changeLabelText(text: "City: \(name);", UIElement: self.panelView.cityLabel)
                 }
             }
 
@@ -185,7 +188,8 @@ class MapViewController: UIViewController, Coordinating {
                 DispatchQueue.main.async {
                     self.tempK = temp
                     self.tempC = self.convertTemperature(tempInKelvin: self.tempK, celsius: true)
-                    self.panelView.tempLabel.text = Strings.temperature.getString() + String(format: "%.2f", self.tempC)
+                    let newString = Strings.temperature.getString() + String(format: "%.2f", self.tempC)
+                    self.panelView.changeLabelText(text: newString, UIElement: self.panelView.tempLabel)
                 }
             }
 
