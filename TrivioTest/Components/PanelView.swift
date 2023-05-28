@@ -1,5 +1,5 @@
 //
-//  self.swift
+//  PanelView.swift
 //  TrivioTest
 //
 //  Created by Anvar Bagautdinov on 27.05.2023.
@@ -8,8 +8,6 @@
 import UIKit
 
 class PanelView: UIView {
-
-    //TODO: все свойства сделать снова приватными, затем вытащить методы на их изменение, через диспатчГруп. Это прямо придется делать, если подвязывать компонент под протокол.
 
     //MARK: - Properties
 

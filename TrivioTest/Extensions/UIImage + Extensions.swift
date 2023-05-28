@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIImage {
+    
     func scaleToSize(_ size: CGSize) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         defer { UIGraphicsEndImageContext() }

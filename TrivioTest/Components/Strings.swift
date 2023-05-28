@@ -15,8 +15,8 @@ enum Strings: String {
     case noCity = "Нет города поблизости"
     case buttonImageName = "Button"
     case pinImageName = "Pin"
-    case Локации
-    case Карта
+    case location = "Локации"
+    case map = "Карта"
     case locationServicesTitle = "Geolocation Services Are Offline"
     case locationServicesMessage = "Turn on location services to allow application to determine your location"
     case permissionTitle = "Geolocation Permission is not granted"

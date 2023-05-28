@@ -15,11 +15,10 @@ final class MainCoordinator: CoordinatorProtocol {
 
     func eventOccurred(with type: Event) {
         switch type {
-        case .btnPressed:
+        case .buttonPressed:
             var vc: UIViewController & Coordinating = LocationsViewController()
             vc.coordinator = self
-            vc.title = Strings.Локации.getString()
-            vc.navigationController?.navigationBar.barTintColor = .black
+            vc.title = Strings.location.getString()
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -36,7 +35,6 @@ final class MainCoordinator: CoordinatorProtocol {
             UINavigationBar.appearance().standardAppearance = navBarAppearance
             UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
         }
-        vc.title = Strings.Карта.getString()
         navigationController?.setViewControllers([vc], animated: false)
     }
 }

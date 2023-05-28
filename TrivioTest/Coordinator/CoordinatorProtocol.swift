@@ -8,7 +8,7 @@
 import UIKit
 
 enum Event {
-    case btnPressed
+    case buttonPressed
 }
 
 protocol CoordinatorProtocol {

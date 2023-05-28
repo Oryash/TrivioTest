@@ -13,8 +13,6 @@ class MapViewController: UIViewController, Coordinating {
 
     //MARK: - Properties
 
-    //TODO: обернуть в протоколы?
-
     private struct Constants {
         static let panelViewHeight: CGFloat = 135
         static let regionScale: Double = 10000
@@ -23,6 +21,7 @@ class MapViewController: UIViewController, Coordinating {
     }
 
     var coordinator: CoordinatorProtocol?
+    var alertManager: AlertManager = AlertManager()
 
     private let locationManager = CLLocationManager()
     private var isPanelShown = false
@@ -41,20 +40,24 @@ class MapViewController: UIViewController, Coordinating {
         return map
     }()
 
-    var alertManager: AlertManager = AlertManager()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setMapConstraints()
         checkLocationServices()
         mapView.delegate = self
-        panelView.segmentedControlCallback = { control in
-            self.segmentedControlChanged(control)
-        }
+        listenForSegmentedControl()
         setupBarButton()
+        title = Strings.map.getString()
+
     }
 
     //MARK: - Methods
+
+    private func listenForSegmentedControl() {
+        panelView.segmentedControlCallback = { control in
+            self.segmentedControlChanged(control)
+        }
+    }
 
     private func setupBarButton() {
         if let buttonImage = UIImage(named: Strings.buttonImageName.getString())?.withRenderingMode(.alwaysOriginal) {
@@ -86,7 +89,12 @@ class MapViewController: UIViewController, Coordinating {
             } else {
                 DispatchQueue.main.async {
                     let action = UIAlertAction(title: "OK", style: .default) { _ in }
-                    self.alertManager.showAlert(with: .init(title: Strings.locationServicesTitle.getString(), message: Strings.locationServicesMessage.getString(), actions: [action]), on: self)
+                    self.alertManager.showAlert(
+                        with: .init(title: Strings.locationServicesTitle.getString(),
+                                    message: Strings.locationServicesMessage.getString(),
+                                    actions: [action]
+                                   ),
+                        on: self)
                 }
             }
         }
@@ -110,6 +118,8 @@ class MapViewController: UIViewController, Coordinating {
             mapView.showsUserLocation = true
             centerViewOnUserLocation()
             locationManager.startUpdatingLocation()
+        @unknown default:
+            break
         }
     }
 
@@ -139,8 +149,19 @@ class MapViewController: UIViewController, Coordinating {
         }
     }
 
+    private func hideShowPanel(constant: CGFloat) {
+        UIView.animate(withDuration: 0.5) {
+            self.panelViewBottomConstraint?.isActive = false
+            self.panelViewBottomConstraint = self.panelView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: constant)
+            self.panelViewBottomConstraint?.isActive = true
+            self.view.layoutIfNeeded()
+        }
+    }
+
+
     private func setMapConstraints() {
         view.addSubviews(mapView, panelView)
+
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: self.view.topAnchor),
             mapView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
@@ -157,7 +178,7 @@ class MapViewController: UIViewController, Coordinating {
     //MARK: - objc Methods
 
     @objc func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
-        if isPanelShown == false {
+        if !isPanelShown {
             let tapPoint = gestureRecognizer.location(in: mapView)
             let tapCoordinate = mapView.convert(tapPoint, toCoordinateFrom: mapView)
 
@@ -174,7 +195,6 @@ class MapViewController: UIViewController, Coordinating {
 
             panelView.changeLabelText(text: "Lat: \(String(format: "%.3f", lat));", UIElement: panelView.latLabel)
             panelView.changeLabelText(text: "Lon: \(String(format: "%.3f", lon));", UIElement: panelView.lonLabel)
-            //TODO: пока город (может вся tableView) грузится, сделать loader
 
             CityManager.getCityNameFromCoordinates(latitude: lat, longitude: lon) { name in
                 DispatchQueue.main.async {
@@ -192,28 +212,16 @@ class MapViewController: UIViewController, Coordinating {
                     self.panelView.changeLabelText(text: newString, UIElement: self.panelView.tempLabel)
                 }
             }
-
-            UIView.animate(withDuration: 0.5) {
-                self.panelViewBottomConstraint?.isActive = false
-                self.panelViewBottomConstraint = self.panelView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)
-                self.panelViewBottomConstraint?.isActive = true
-                self.view.layoutIfNeeded()
-            }
+            hideShowPanel(constant: 0)
             isPanelShown = true
         } else if isPanelShown {
-            UIView.animate(withDuration: 0.5) {
-                self.panelViewBottomConstraint?.isActive = false
-                self.panelViewBottomConstraint = self.panelView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: Constants.panelViewHeight)
-                self.panelViewBottomConstraint?.isActive = true
-                self.view.layoutIfNeeded()
-
-            }
-            self.isPanelShown = false
+            hideShowPanel(constant: Constants.panelViewHeight)
+            isPanelShown = false
         }
     }
 
     @objc func navigate() {
-        coordinator?.eventOccurred(with: .btnPressed)
+        coordinator?.eventOccurred(with: .buttonPressed)
     }
 }
 

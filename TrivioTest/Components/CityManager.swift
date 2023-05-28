@@ -9,7 +9,11 @@ import Foundation
 import CoreLocation
 
 final class CityManager {
-    static func getCityNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (String) -> ()) {
+    static func getCityNameFromCoordinates(
+        latitude: CLLocationDegrees,
+        longitude: CLLocationDegrees,
+        completion: @escaping (String) -> ()
+    ) {
         let location = CLLocation(latitude: latitude, longitude: longitude)
 
         CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in

@@ -13,8 +13,7 @@ class NetworkManager {
         guard let url = URL(string: urlString) else { return }
 
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                print(error)
+            if let _ = error {
                 return
             }
 
